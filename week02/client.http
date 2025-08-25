@@ -1,0 +1,26 @@
+GET http://127.0.0.1:8000/personal/1
+
+GET http://127.0.0.1:8000/personal/?skip=0&limit=10
+
+POST http://127.0.0.1:8000/personal/
+
+{
+  "name": "Pimchanok",
+  "surname": "Sri",
+  "user_type": "group",
+  "phone_number": "0855554444",
+  "email": "pimchanok@example.com",
+  "idcard_file": "id_004.png",
+  "id_number": "1101700765432",
+  "birth": "1992-03-15",
+  "religion": "Buddhism",
+  "village_name": "Ban D",
+  "house_number": "88/9",
+  "road": "Mittraphap",
+  "alley": "Soi 12",
+  "province": "Nakhon Ratchasima",
+  "district": "Mueang Nakhon Ratchasima",
+  "subdistrict": "Nai Mueang"
+}
+
+DELETE http://127.0.0.1:8000/personal/3
