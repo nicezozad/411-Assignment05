@@ -1,1 +1,8 @@
 GET http://127.0.0.1:8000/trips/1
+
+POST http://127.0.0.1:8000/trips/
+
+{
+    "duration" : 40,
+    "group_size" : 20
+}
