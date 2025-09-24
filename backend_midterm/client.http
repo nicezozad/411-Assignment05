@@ -50,3 +50,5 @@ GET http://localhost:8000/tickets
 ### ข้อ 4: ตรวจสอบที่นั่งคงเหลือของตู้ในขบวนนั้นอีกครั้งหลังจอง (available_seats จะลดลง)
 # เปลี่ยน {id} เป็นขบวนเดียวกับที่เพิ่งจอง
 GET http://localhost:8000/services/1
+
+#
