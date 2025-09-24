@@ -1,0 +1,52 @@
+### ตรวจว่าระบบขึ้นแล้ว และมีสายรถไฟในระบบ
+GET http://localhost:8000/lines
+
+### ดูรายการสถานีทั้งหมด (ใช้ค้นหา station_id ตอนอยากเพิ่มขบวนใหม่เอง)
+GET http://localhost:8000/stations
+
+### ข้อ 1: แสดงเที่ยวรถไฟทั้งหมดที่ให้บริการ (มีเวลาออก/ถึง) — เลื่อนดูรายการแล้วจด service_id ที่จะใช้ทดสอบ
+GET http://localhost:8000/services
+
+### ข้อ 1 เพิ่มเติม: ค้นหาขบวนตาม "ช่วงเวลา" เพื่อทดสอบจองแบบเลือกเวลาได้จริง
+# ปรับค่า start/end เป็นช่วงเวลาวันนี้ตามต้องการในรูปแบบ ISO 8601
+GET http://localhost:8000/services/search?start=2025-09-23T08:00:00&end=2025-09-23T12:00:00
+
+### ข้อ 1 + 2: ดูรายละเอียดขบวนเดียว (รายชื่อสถานีที่หยุดทุกสถานี + รายละเอียดตู้รถไฟทั้งหมด)
+# เปลี่ยน {id} เป็น service_id ที่ได้จากสองคำสั่งก่อนหน้า
+GET http://localhost:8000/services/1
+
+### (ทางเลือก) เพิ่มขบวนใหม่ด้วยตนเองเพื่อตรวจข้อ 1 เต็ม ๆ
+# ขั้นตอนปกติ:
+# 1) เรียก /lines และ /stations เพื่อทราบ line_id และ station_id
+# 2) กำหนด stop_station_ids ตามลำดับการหยุดตั้งแต่ต้นทางถึงปลายทาง
+# 3) ใส่ departure_time และ arrival_time เอง หรือปล่อยว่างให้ระบบสุ่มให้ก็ได้
+POST http://localhost:8000/services
+Content-Type: application/json
+
+{
+  "line_id": 1,
+  "code": "TEST EXPRESS 999",
+  "origin": "BANGKOK",
+  "direction": "outbound",
+  "stop_station_ids": [1, 2, 3, 4, 5],
+  "departure_time": "2025-09-23T10:15:00",
+  "arrival_time": "2025-09-23T13:45:00"
+}
+
+### ข้อ 3: จองตั๋ว โดย “เลือกเวลา” ผ่าน service_id ที่ค้นมาจากช่วงเวลา
+# เปลี่ยน service_id และ car_type ตามจริง (car_type ที่รองรับ: "First", "Reserved", "Non-reserved", "Quiet", "Catering")
+POST http://localhost:8000/tickets
+Content-Type: application/json
+
+{
+  "service_id": 1,
+  "car_type": "Reserved",
+  "quantity": 3
+}
+
+### ข้อ 3.2: เรียกดูรายการตั๋วที่จองทั้งหมด
+GET http://localhost:8000/tickets
+
+### ข้อ 4: ตรวจสอบที่นั่งคงเหลือของตู้ในขบวนนั้นอีกครั้งหลังจอง (available_seats จะลดลง)
+# เปลี่ยน {id} เป็นขบวนเดียวกับที่เพิ่งจอง
+GET http://localhost:8000/services/1
