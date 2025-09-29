@@ -3,5 +3,8 @@
 </script>
 
 <div><Quantifier /></div>
+<div><Quantifier /></div>
+<div><Quantifier /></div>
+<div><Quantifier /></div>
 
 <img src="/karamuchco.jpg" alt="Me" height="100">
