@@ -1,7 +1,7 @@
 <script>
-  import SurveyHeader from '$lib/SurveyHeader.svelte'
-  import SurveyItem from '$lib/SurveyItem.svelte'
-  import { aspects } from '$lib/survey.js'
+  import StatusHeader from '$lib/StatusHeader.svelte'
+  import StatusItem from '$lib/StatusItem.svelte'
+  import { aspects } from '$lib/status.js'
 
   let items = $state(aspects)
   let passCount = $derived(items.filter(i => i.status === 'pass').length)
@@ -10,14 +10,14 @@
 </script>
 
 <section class="wrap">
-  <h1>สำรวจเพาะปลูก 8 ด้าน</h1>
+  <h1>ติดตามสถานะการเพาะปลูก 8 ด้าน</h1>
   <p class="subtitle">อัปเดตสถานะการประเมินมาตรฐาน GAP</p>
 
-  <SurveyHeader passCount={passCount} warnCount={warnCount} noneCount={noneCount} />
+  <StatusHeader passCount={passCount} warnCount={warnCount} noneCount={noneCount} />
 
   <section class="grid">
     {#each items as item (item.slug)}
-      <SurveyItem {...item} />
+      <StatusItem {...item} />
     {/each}
   </section>
 </section>

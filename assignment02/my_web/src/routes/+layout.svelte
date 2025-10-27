@@ -5,8 +5,8 @@
 <nav class="nav">
   <a href="/">home</a>
   <a href="/blog">blog</a>
-  <a href="/about">about</a>
-  <a href="/Survey">สำรวจเพาะปลูก 8 ด้าน</a>
+  <a href="/Analyze">วิเคราะห์การผลิต</a>
+  <a href="/Status">ติดตามสถานะ</a>
   <a href="/reports">reports</a>
   <a href="/settings">settings</a>
 </nav>
